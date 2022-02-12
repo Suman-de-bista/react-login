@@ -11,7 +11,14 @@ export default function Login(props) {
     password: '',
     showPassword: false,
   });
-
+  const handleBgMode = () =>{
+    if (props.mode === 'Light'){
+      return "bg-Dark"
+    }
+    else{
+      return "bg-Light"
+    }
+  }
   const handleEmailChange = (e)=>{
     setUsername(e.target.value);
   }
@@ -32,30 +39,31 @@ export default function Login(props) {
     e.preventDefault();
     alert(username);
   }
-
   return (
-    <div className='main'>
-      <form onSubmit={handleSubmit} className='main-login'>
+    <div className={`main main-${handleBgMode()}`}>
+      <form onSubmit={handleSubmit} className={`main-login main-login-${handleBgMode()}`}>
         <h1>Login</h1>
-      <Box className='box'>
-        <InputLabel htmlFor="input-with-icon-adornment">
+      <Box className={`box`}>
+        <InputLabel className={`input-${handleBgMode()}`}>
           Email Address
         </InputLabel>
         <OutlinedInput
           value={username}
           type='email'
+          className={`input-box-${handleBgMode()}`}
           placeholder='abc@email.com'
           onChange={handleEmailChange}
           startAdornment={
             <InputAdornment position="start">
-                <EmailIcon  />  
+                <EmailIcon className={`input-${handleBgMode()}`} />  
             </InputAdornment>
           }
         />
         </Box>
         <Box className='box'>
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <InputLabel className={`input-${handleBgMode()}`}>Password</InputLabel>
           <OutlinedInput
+            className={`input-box-${handleBgMode()}`}
             type={values.showPassword ? 'text' : 'password'}
             value={values.password}
             placeholder='Enter Password'
@@ -64,6 +72,7 @@ export default function Login(props) {
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
+                  className={`input-${handleBgMode()}`}
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
